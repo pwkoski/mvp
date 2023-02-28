@@ -57,3 +57,4 @@ exports.getNode = async (name) => {
 };
 
 //exports.getNode("Half Guard").then((result) => {console.log('and this is result: ', result)});
+//exports.createNode();
