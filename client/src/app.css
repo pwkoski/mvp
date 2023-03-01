@@ -1,0 +1,12 @@
+/*this is a comment
+hopefully it works
+just in cas
+*/
+
+
+.nodeContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+}
