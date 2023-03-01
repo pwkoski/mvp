@@ -31,6 +31,44 @@ const Entry = ({name, label, index, setCurrentNode}) => {
     }
   }
 
+  let entryStyle = {};
+
+  console.log('this is label: ', label);
+
+  // backgroundColor: "rgba(0, 0, 0, .25)",
+
+  const submissionStyle = {
+    width: "fit-content",
+    fontFamily: "Arial Black",
+    borderStyle: "outset",
+    borderRadius: "5px",
+    borderWidth: "thick",
+    padding: "5px",
+    backgroundColor: "red",
+  }
+  const positionStyle = {
+    backgroundColor : "blue",
+  }
+  const sweepStyle = {
+    backgroundColor : "green",
+  }
+  const opponentStyle = {
+    backgroundColor : "grey",
+  }
+
+  if (label === 'Submission') {
+    console.log('in if statement');
+    entryStyle = submissionStyle;
+  } else if (label === 'Position') {
+    entryStyle = positionStyle;
+  } else if (label === 'Sweep') {
+    entryStyle = sweepStyle;
+  } else {
+    entryStyle = opponentStyle;
+  }
+
+  console.log('this is entry style before rendering: ', entryStyle);
+
   return (
     <>
     <motion.div
@@ -42,6 +80,7 @@ const Entry = ({name, label, index, setCurrentNode}) => {
         variants = {item}
         onClick = {handleOnClick}
         label = {label}
+        style = {entryStyle}
         >
         {name}
       </motion.div>

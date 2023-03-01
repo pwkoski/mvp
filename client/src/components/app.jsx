@@ -34,15 +34,23 @@ const App = () => {
     });
   }
 
+  const nodeContainerStyle = {display: "flex", flexDirection: "row", width: "100%", alignItems: "stretch"}
+
+  const currentNodeStyle = {width: "33%", height: "100%"}
+
+  const entryListStyle = {width: "33%", height: "100%"}
+
+  const futureStyle = {width: "33%", height: "100%"}
+
   return (
-    <div id="nodeContainer" style={{display: "flex", flexDirection: "row", alignItems: "stretch", width: "100%"}}>
-      <div id="currentNode" style={{width: "33%", height: "100%"}}>
+    <div id="nodeContainer" className="nodeContainer" style={nodeContainerStyle}>
+      <div id="currentNode" style={currentNodeStyle}>
       <Entry key={-1} name={currentNode.name} label={currentNode.label} index={-1} setCurrentNode={setCurrentNode}/>
       </div>
-      <motion.div key={currentNode.name} id="entryList" style={{width: "33%", height: "100%"}}>
+      <motion.div key={currentNode.name} id="entryList" style={entryListStyle}>
       {entryList}
       </motion.div>
-      <div id="future" style={{width: "33%", height: "100%"}}>
+      <div id="future" style={futureStyle}>
       FUTURE
       </div>
     </div>
