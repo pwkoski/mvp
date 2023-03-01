@@ -44,14 +44,17 @@ exports.createNode = async () => {
 
 };
 
-exports.getNode = async (name) => {
-  console.log('in models, name: ', name);
+exports.getNode = async (name, label) => {
+  //console.log('in models, name: ', name, " label: ", label);
   const newsession = driver.session({database:"mvp1"});
-  const result = await newsession.run(`MATCH (:Position {name: $name})-[]->(b)
-   RETURN b`, {name: name});
+
+  const query = "MATCH (:" + label + " {name: $name})-[]->(b) RETURN b";
+  //console.log(query);
+  const result = await newsession.run(query, {name: name});
+
 
   newsession.close();
-  console.log('here is result: ', result);
+  //console.log('here is result: ', result);
   return result;
 
 };

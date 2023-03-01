@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Entry from './entry.jsx';
+import { motion } from "framer-motion";
 
 
-
-async function getNode(currNode) {
+async function getNodeList(name, label) {
   const response = await axios.get(
-    `http://localhost:3000/getNode`, { params: { "name": `"${currNode}"` } }
+    `http://localhost:3000/getNode`, { params: { "name": `"${name}"`, "label": `"${label}"` } }
   );
   return response;
 };
@@ -14,39 +15,36 @@ async function getNode(currNode) {
 
 const App = () => {
 
-  const [currentNode, setCurrentNode] = useState('Half Guard');
+  const [currentNode, setCurrentNode] = useState({name: 'Half Guard', label: 'Position'});
   const [currList, setCurrList] = useState([]);
 
+  let entryList = [];
+
   useEffect(() => {
-    getNode(currentNode)
+    getNodeList(currentNode.name, currentNode.label)
     .then((result) => {
       setCurrList(result.data);
     })
     }, [currentNode]);
 
-  console.log('here is currList: ', currList);
+
   if (currList.length !== 0) {
-    const nodeList = currList.map((node, index, currList) => {
-      console.log(node.name, ' ', node.label);
-      return node;
-      //return <Entry name={node.name} label={node.label} index={index} currList={currList}/>
+    entryList = currList.map((node, index, currList) => {
+      return <Entry key={index} name={node.name} label={node.label} index={index} setCurrentNode={setCurrentNode}/>
     });
-  }
-  console.log('document.defaultView.visualViewport: ', document.defaultView.visualViewport)
-
-  const onChange = (e) => {
-    setTerm(e.target.value);
-  }
-
-  const search = () => {
-    onSearch(term);
   }
 
   return (
-    <div>
-      <h4>Add more repos!</h4>
-      Enter a github username: <input value={'2'} onChange={onChange}/>
-      <button onClick={search}> Add Repos </button>
+    <div id="nodeContainer" style={{display: "flex", flexDirection: "row", alignItems: "stretch", width: "100%"}}>
+      <div id="currentNode" style={{width: "33%", height: "100%"}}>
+      <Entry key={-1} name={currentNode.name} label={currentNode.label} index={-1} setCurrentNode={setCurrentNode}/>
+      </div>
+      <motion.div key={currentNode.name} id="entryList" style={{width: "33%", height: "100%"}}>
+      {entryList}
+      </motion.div>
+      <div id="future" style={{width: "33%", height: "100%"}}>
+      FUTURE
+      </div>
     </div>
   );
 }
