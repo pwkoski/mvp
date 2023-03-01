@@ -1,50 +1,53 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from "framer-motion";
 
+const Entry = ({name, label, index, setCurrentNode}) => {
 
-const Entry = ({name, label, index, currList}) => {
-
-  const [currentNode, setCurrentNode] = useState('Half Guard');
-  const [currList, setCurrList] = useState([]);
-
-  useEffect(() => {
-    getNode(currentNode)
-    .then((result) => {
-      setCurrList(result.data);
-    })
-    }, [currentNode]);
-
-  console.log('here is currList: ', currList);
-  if (currList.length !== 0) {
-    const nodeList = currList.map((node, index, currList) => {
-      console.log(node.name, ' ', node.label);
-      return node;
-      //return <Entry name={node.name} label={node.label} index={index} currList={currList}/>
-    });
-  }
-  console.log('document.defaultView.visualViewport: ', document.defaultView.visualViewport)
-
-  const onChange = (e) => {
-    setTerm(e.target.value);
+  let height = document.defaultView.visualViewport.height;
+  let divHeight = 36; //pixels
+  let gap = 9; //pixels
+  let y = index * (divHeight + gap);
+  if (index === -1) {
+    y = height/2;
   }
 
-  const search = () => {
-    onSearch(term);
+  const handleOnClick = (e) => {
+    setCurrentNode({name: e.target.innerText, label:event.target.getAttribute("label")});
   }
 
-  // import { motion } from "framer-motion"
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+    }
+  }
 
-  // export const MyComponent = ({ isVisible }) => (
-  //     <motion.div animate={{ opacity: isVisible ? 1 : 0 }} />
-  // )
-
+  const item = {
+    hidden: { opacity: 0, y: 0 },
+    show: {
+      opacity: 1,
+      y: y,
+      transition: { delay: .05 * index }
+    }
+  }
 
   return (
-    <div>
-      <h4>Add more repos!</h4>
-      Enter a github username: <input value={'2'} onChange={onChange}/>
-      <button onClick={search}> Add Repos </button>
-    </div>
+    <>
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+    >
+      <motion.div
+        variants = {item}
+        onClick = {handleOnClick}
+        label = {label}
+        >
+        {name}
+      </motion.div>
+    </motion.div>
+    </>
   );
 }
 
-export default App;
+export default Entry;

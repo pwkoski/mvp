@@ -2,10 +2,10 @@ const model = require("../model/model.js");
 
 
 exports.getNode = (req, res) => {
-  //console.log('req.query.name: ', req.query.name);
-  model.getNode(JSON.parse(req.query.name))
+  //console.log('in controller, req.query.name: ', req.query.name, 'req.query.label: ', req.query.label);
+  model.getNode(JSON.parse(req.query.name), JSON.parse(req.query.label))
   .then((result) => {
-    console.log('result in controller: ', result);
+    //console.log('result in controller: ', result);
     const allRecords = result.records;
     const resultArray = [];
     allRecords.forEach((record) => {
