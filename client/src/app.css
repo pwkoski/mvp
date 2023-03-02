@@ -3,6 +3,11 @@ hopefully it works
 just in cas
 */
 
+body {
+  background-image: url('../dist/background.jpeg');
+}
+
+/* app.jsx */
 
 .nodeContainer {
   display: flex;
