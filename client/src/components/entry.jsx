@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 
-const Entry = ({name, label, index, setCurrentNode}) => {
+const Entry = ({name, label, index, setCurrentNode, stack, currentNode, arrayLength}) => {
+
+  console.log('this is array.length in entry: ', arrayLength);
+  console.log('this is stack in entry: ', stack);
 
   let height = document.defaultView.visualViewport.height;
   let divHeight = 36; //pixels
   let gap = 9; //pixels
-  let y = index * (divHeight + gap);
+  //let offset = (height - (arrayLength*(divHeight + gap)))/4;
+  let y = index * (divHeight + gap) //+ offset;
   if (index === -1) {
     y = height/2;
   }
 
   const handleOnClick = (e) => {
+    if (e.target.innerText !== 'Half Guard') {
+
+      stack.push({name: currentNode.name, label: currentNode.label});
+    }
+    //console.log('this is stack: ', stack);
     setCurrentNode({name: e.target.innerText, label:event.target.getAttribute("label")});
   }
 
@@ -33,31 +42,57 @@ const Entry = ({name, label, index, setCurrentNode}) => {
 
   let entryStyle = {};
 
-  console.log('this is label: ', label);
+  //console.log('this is label: ', label);
 
   // backgroundColor: "rgba(0, 0, 0, .25)",
 
   const submissionStyle = {
     width: "fit-content",
     fontFamily: "Arial Black",
+    color: "lightGray",
     borderStyle: "outset",
-    borderRadius: "5px",
+    borderRadius: "10px",
     borderWidth: "thick",
     padding: "5px",
+    borderColor: "darkRed",
     backgroundColor: "red",
   }
   const positionStyle = {
+    width: "fit-content",
+    fontFamily: "Arial Black",
+    color: "lightGray",
+    borderStyle: "outset",
+    borderRadius: "10px",
+    borderWidth: "thick",
+    borderColor: "darkBlue",
+    padding: "5px",
     backgroundColor : "blue",
   }
   const sweepStyle = {
+    width: "fit-content",
+    fontFamily: "Arial Black",
+    color: "lightGray",
+    borderStyle: "outset",
+    borderRadius: "10px",
+    borderWidth: "thick",
+    borderColor: "darkGreen",
+    padding: "5px",
     backgroundColor : "green",
   }
   const opponentStyle = {
+    width: "fit-content",
+    fontFamily: "Arial Black",
+    color: "lightGray",
+    borderStyle: "outset",
+    borderRadius: "10px",
+    borderWidth: "thick",
+    borderColor: "darkGray",
+    padding: "5px",
     backgroundColor : "grey",
   }
 
   if (label === 'Submission') {
-    console.log('in if statement');
+    //console.log('in if statement');
     entryStyle = submissionStyle;
   } else if (label === 'Position') {
     entryStyle = positionStyle;
@@ -67,7 +102,7 @@ const Entry = ({name, label, index, setCurrentNode}) => {
     entryStyle = opponentStyle;
   }
 
-  console.log('this is entry style before rendering: ', entryStyle);
+  //console.log('this is entry style before rendering: ', entryStyle);
 
   return (
     <>
