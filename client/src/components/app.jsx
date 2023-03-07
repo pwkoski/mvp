@@ -24,22 +24,17 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-
      let result = await getNodeList(currentNode.name, currentNode.label)
-
      setCurrList(result.data);
-
-    })()}, [currentNode]);
-
-
-    if (currList.length !== 0) {
-      entryList = currList.map((node, index, array) => {
-        //let arrayLength = array.length;
-        return <Entry key={index} name={node.name} label={node.label} index={index} setCurrentNode={setCurrentNode} stack={stack} currentNode={currentNode} arrayLength={array.length}/>
-      });
-     }
+    })()}, [currentNode]
+  );
 
 
+  if (currList.length !== 0) {
+    entryList = currList.map((node, index, array) => {
+      return <Entry key={index} name={node.name} label={node.label} index={index} setCurrentNode={setCurrentNode} stack={stack} currentNode={currentNode} arrayLength={array.length}/>
+    });
+  }
 
   const handleBack = function(e) {
     if (currentNode.name !== 'Half Guard') {
@@ -47,12 +42,10 @@ const App = () => {
     }
   }
 
-
   const currentNodeStyle = {width: "33%", height: "100%", display: "flex", justifyContent: "center"}
   const entryListStyle = {width: "33%", height: "100%", display: "flex", flexDirection: "column"}
   const futureStyle = {width: "33%", position: "relative", height: "100%", top: `${(height/2)-40}px`, right: "100px", fontSize: "100px"}
   const backButtonStyle = {position: "relative", height: "100%", top: `${(height/2)-55}px`, left: "100px", fontSize: "120px"}
-
 
   return (
     <div className="nodeContainer">

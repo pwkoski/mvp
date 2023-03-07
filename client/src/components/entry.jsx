@@ -3,9 +3,6 @@ import { motion } from "framer-motion";
 
 const Entry = ({name, label, index, setCurrentNode, stack, currentNode, arrayLength}) => {
 
-  console.log('this is array.length in entry: ', arrayLength);
-  console.log('this is stack in entry: ', stack);
-
   let height = document.defaultView.visualViewport.height;
   let divHeight = 36; //pixels
   let gap = 9; //pixels
@@ -17,10 +14,8 @@ const Entry = ({name, label, index, setCurrentNode, stack, currentNode, arrayLen
 
   const handleOnClick = (e) => {
     if (e.target.innerText !== 'Half Guard') {
-
       stack.push({name: currentNode.name, label: currentNode.label});
     }
-    //console.log('this is stack: ', stack);
     setCurrentNode({name: e.target.innerText, label:event.target.getAttribute("label")});
   }
 
@@ -41,10 +36,6 @@ const Entry = ({name, label, index, setCurrentNode, stack, currentNode, arrayLen
   }
 
   let entryStyle = {};
-
-  //console.log('this is label: ', label);
-
-  // backgroundColor: "rgba(0, 0, 0, .25)",
 
   const submissionStyle = {
     width: "fit-content",
@@ -92,7 +83,6 @@ const Entry = ({name, label, index, setCurrentNode, stack, currentNode, arrayLen
   }
 
   if (label === 'Submission') {
-    //console.log('in if statement');
     entryStyle = submissionStyle;
   } else if (label === 'Position') {
     entryStyle = positionStyle;
@@ -101,8 +91,6 @@ const Entry = ({name, label, index, setCurrentNode, stack, currentNode, arrayLen
   } else {
     entryStyle = opponentStyle;
   }
-
-  //console.log('this is entry style before rendering: ', entryStyle);
 
   return (
     <>
