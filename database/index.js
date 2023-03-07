@@ -1,4 +1,3 @@
-//const express = require("express");
 const neo4j = require("neo4j-driver");
 
 const CONNECTION_STRING =
