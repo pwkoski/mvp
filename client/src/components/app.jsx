@@ -42,10 +42,12 @@ const App = () => {
     }
   }
 
-  const currentNodeStyle = {width: "33%", height: "100%", display: "flex", justifyContent: "center"}
-  const entryListStyle = {width: "33%", height: "100%", display: "flex", flexDirection: "column"}
-  const futureStyle = {width: "33%", position: "relative", height: "100%", top: `${(height/2)-40}px`, right: "100px", fontSize: "100px"}
-  const backButtonStyle = {position: "relative", height: "100%", top: `${(height/2)-55}px`, left: "100px", fontSize: "120px"}
+//backButtonStyle: left: "100px",
+
+  const currentNodeStyle = {width: "20%", height: "100%", display: "flex", flexDirection: "column"}
+  const entryListStyle = {width: "20%", height: "100%", display: "flex", flexDirection: "column"}
+  const futureStyle = {width: "20%", position: "relative", height: "100%", top: `${(height/2)-40}px`, right: "100px", fontSize: "100px"}
+  const backButtonStyle = {width: "20%", position: "relative", height: "100%", top: `${(height/2)-55}px`, fontSize: "120px", display: "flex", justifyContent: "right", right: "100px"}
 
   return (
     <div className="nodeContainer">
@@ -55,11 +57,12 @@ const App = () => {
       <div className="currentNode" id="currentNode" style={currentNodeStyle}>
         <Entry key={-1} name={currentNode.name} label={currentNode.label} index={-1} setCurrentNode={setCurrentNode} stack={stack} currentNode={currentNode}/>
       </div>
+      <div style={{width: "120px"}}></div>
       <motion.div key={currentNode.name} id="entryList" style={entryListStyle}>
         {entryList}
       </motion.div>
       <div id="future" style={futureStyle}>
-      FUTURE
+
       </div>
     </div>
   );
