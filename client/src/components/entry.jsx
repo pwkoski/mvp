@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+
 
 const Entry = ({name, label, index, setCurrentNode, stack, currentNode, arrayLength}) => {
 
   let height = document.defaultView.visualViewport.height;
-  let divHeight = 36; //pixels
+  let divHeight = 18; //36pixels
   let gap = 9; //pixels
   //let offset = (height - (arrayLength*(divHeight + gap)))/4;
   let y = index * (divHeight + gap) //+ offset;
@@ -23,6 +24,10 @@ const Entry = ({name, label, index, setCurrentNode, stack, currentNode, arrayLen
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
+      width: "auto",
+    },
+    exit: {
+      opacity: 0
     }
   }
 
@@ -32,13 +37,16 @@ const Entry = ({name, label, index, setCurrentNode, stack, currentNode, arrayLen
       opacity: 1,
       y: y,
       transition: { delay: .05 * index }
+    },
+    exit: {
+      y: 0
     }
   }
 
   let entryStyle = {};
 
   const submissionStyle = {
-    width: "fit-content",
+    width: "auto",
     fontFamily: "Arial Black",
     color: "lightGray",
     borderStyle: "outset",
@@ -49,7 +57,7 @@ const Entry = ({name, label, index, setCurrentNode, stack, currentNode, arrayLen
     backgroundColor: "red",
   }
   const positionStyle = {
-    width: "fit-content",
+    width: "auto",
     fontFamily: "Arial Black",
     color: "lightGray",
     borderStyle: "outset",
@@ -60,7 +68,7 @@ const Entry = ({name, label, index, setCurrentNode, stack, currentNode, arrayLen
     backgroundColor : "blue",
   }
   const sweepStyle = {
-    width: "fit-content",
+    width: "auto",
     fontFamily: "Arial Black",
     color: "lightGray",
     borderStyle: "outset",
@@ -71,7 +79,7 @@ const Entry = ({name, label, index, setCurrentNode, stack, currentNode, arrayLen
     backgroundColor : "green",
   }
   const opponentStyle = {
-    width: "fit-content",
+    width: "auto",
     fontFamily: "Arial Black",
     color: "lightGray",
     borderStyle: "outset",
@@ -98,15 +106,19 @@ const Entry = ({name, label, index, setCurrentNode, stack, currentNode, arrayLen
       variants={container}
       initial="hidden"
       animate="show"
-    >
-      <motion.div
-        variants = {item}
-        onClick = {handleOnClick}
-        label = {label}
-        style = {entryStyle}
-        >
-        {name}
-      </motion.div>
+      exit="exit"
+      >
+
+        <motion.div
+          variants = {item}
+          onClick = {handleOnClick}
+          label = {label}
+          style = {entryStyle}
+          exit = {{ y: 0 }}
+          >
+          {name}
+        </motion.div>
+
     </motion.div>
     </>
   );
